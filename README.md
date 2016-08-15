@@ -39,8 +39,18 @@ It is `pdfminer` which imposes the restriction that this environment by `Python 
 
 For more technical details, read the source code&mdash;it is well-documented and eminently readable.
 
+## Capacities
+
+At the moment this module is meant for text extraction of C of O issuance dates.
+
+However, you can extend it yourself so that it extracts any (machine-readable) text feature from a (recent) C of O by replacing `_harvest_certificate_date_from_pdf` (which does the actual text mining and date extraction) with your own "reducer" function. 
+
+Examples of other extractable features: unit count; certificate type; applicable building code; number of stories; etc.
+
 ## Limitations
 
 This module uses a simple text extraction facility to do its work, so it relies on the certificate of occupancy being uploaded in a machine-readable (2003+) and unencrypted (also 2003+?) format.
 
 Older documents (going back to circa 1916) are available in a combination of handwritten/typed formats, for obvious reasons, and strangely they are all encrypted as well, making reading them impossible. You can get around this by running optical character recognition on them first and extracting the text from the scanned copy. A stub method for doing so, using `pyocr`, exists in the source code, but is not currently implemented.
+
+C of Os filed within the last ten years (or so) are all uploaded using [the same machine readable format](https://github.com/ResidentMario/nyc-certificates-of-occupancy/blob/master/2015%20Example.pdf). C of Os dating from about 2003 are also machine readable, but have an older format. Forms older than 2002 or so are not machine readable, but I believe are high enough quality to submit to optical character recognition well. The scan quality gets iffier and iffier the further back you go; I would say, don't expect to get anything out of documents older than about the mid-1990s. You can see this for yourself in my [example gallery repo](https://github.com/ResidentMario/nyc-certificates-of-occupancy)).
